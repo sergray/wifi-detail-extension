@@ -15,6 +15,7 @@ let detailText;
 let signalId;
 let timeoutId;
 const interval = 1000;
+const showStrength = true;
 
 function init() {
 }
@@ -32,7 +33,11 @@ function updateText() {
     let statusText = '';
     if (targetWifiDev.state == NetworkManager.DeviceState.ACTIVATED) {
         let ap = targetWifiDev.get_active_access_point();
-        detailText.set_text("%s/%s (%d%%)".format(targetWifiDev.get_iface(), ap.get_ssid(), ap.get_strength()));
+        if (showStrength) {
+            detailText.set_text("%s/%s (%d%%)".format(targetWifiDev.get_iface(), ap.get_ssid(), ap.get_strength()));
+        } else {    
+            detailText.set_text("%s/%s".format(targetWifiDev.get_iface(), ap.get_ssid()));
+        }
     } else {
         detailText.set_text("");
     }
