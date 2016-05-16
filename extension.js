@@ -46,6 +46,7 @@ function updateText() {
 // https://www.roojs.org/seed/gir-1.2-gtk-3.0/seed/NMClient.AccessPoint.html#expand
 // https://www.roojs.org/seed/gir-1.2-gtk-3.0/seed/NMClient.Client.html
 // https://www.roojs.org/seed/gir-1.2-gtk-3.0/seed/NMClient.DeviceWifi.html
+// https://extensions.gnome.org/review/4561
 function enable() {
     // locate the first wifi device.
     let iface_list = ncc.get_devices()
