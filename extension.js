@@ -31,13 +31,13 @@ function updateTimeout() {
 function updateText() {
     let statusText = '';
     if (targetWifiDev.state == NetworkManager.DeviceState.ACTIVATED) {
-        statusText = targetWifiDev.get_iface();
+        //statusText = targetWifiDev.get_iface();
 
         let ap = targetWifiDev.get_active_access_point();
-        statusText += "/" + ap.get_ssid();
-        statusText += " (" + ap.get_strength() + "%)";
+        //statusText += "/" + ap.get_ssid();
+        //statusText += " (" + ap.get_strength() + "%)";
 
-        detailText.set_text(statusText);
+        detailText.set_text("%s/%s (%d%%)".format(targetWifiDev.get_iface(), ap.get_ssid(), ap.get_strength());
     } else {
         detailText.set_text("");
     }
