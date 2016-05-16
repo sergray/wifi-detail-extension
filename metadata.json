@@ -1,0 +1,7 @@
+{
+	"uuid": "wifi-detail@bgaff",
+	"shell-version": ["3.12", "3.14", "3.16", "3.18"],
+	"name": "Wifi detail",
+	"description": "Show wifi details in the topbar",
+	"url": "https://github.com/bgaff/wifi-detail-extension"
+}
