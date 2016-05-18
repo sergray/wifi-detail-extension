@@ -34,12 +34,12 @@ function updateText() {
     if (targetWifiDev.state == NetworkManager.DeviceState.ACTIVATED) {
         let ap = targetWifiDev.get_active_access_point();
         if (showStrength) {
-            detailText.set_text("%s/%s (%d%%)".format(targetWifiDev.get_iface(), ap.get_ssid(), ap.get_strength()));
+            detailText.set_text("%s %d%%/%s".format(targetWifiDev.get_iface(), ap.get_strength(), ap.get_ssid()));
         } else {    
             detailText.set_text("%s/%s".format(targetWifiDev.get_iface(), ap.get_ssid()));
         }
     } else {
-        detailText.set_text("");
+        detailText.hide();
     }
 }
 
@@ -62,17 +62,24 @@ function enable() {
     }
 
     let network = getNetwork();
-    detailText = new St.Label({ text: "", y_align: Clutter.ActorAlign.CENTER });
-    network.indicators.add_child(detailText);
+    if (!detailText) {
+        detailText = new St.Label({ text: "", y_align: Clutter.ActorAlign.CENTER });
+        network.indicators.add_child(detailText);
+    }
 
     // so we can be notified of network changes.
     signalId = targetWifiDev.connect('notify::state',Lang.bind(ncc, updateText));
-    timeoutId = Mainloop.timeout_add(interval, Lang.bind(ncc, updateTimeout));
+    
+    if (showStrength)
+        timeoutId = Mainloop.timeout_add(interval, Lang.bind(ncc, updateTimeout));
+    
     updateText.call(network);
 }
 
 function disable() {
     targetWifiDev.disconnect(signalId);
-    Mainloop.source_remove(timeoutId);
+    if (showStrength)
+        Mainloop.source_remove(timeoutId);
+    
     detailText.destroy();
 }
