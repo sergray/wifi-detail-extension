@@ -14,7 +14,7 @@ let targetWifiDev;
 let detailText;
 let signalId;
 let timeoutId;
-const interval = 1000;
+const interval = 3000;
 const showStrength = true;
 
 function init() {
@@ -70,8 +70,9 @@ function enable() {
     // so we can be notified of network changes.
     signalId = targetWifiDev.connect('notify::state',Lang.bind(ncc, updateText));
     
-    if (showStrength)
+    if (showStrength) {
         timeoutId = Mainloop.timeout_add(interval, Lang.bind(ncc, updateTimeout));
+    }
     
     updateText.call(network);
 }
